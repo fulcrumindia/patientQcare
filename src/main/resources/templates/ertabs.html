@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8" />
+<title>Patient Q</title>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" />
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" />
+<link rel="stylesheet" href="tabs/css/style.css" />
+<link rel='stylesheet'
+	href='tabs/plugin/fullcalendar-3.8.0/fullcalendar.min.css' />
+<link href='tabs/plugin/fullcalendar-3.8.0/fullcalendar.print.min.css'
+	rel='stylesheet' media='print' />
+</head>
+
+<body>
+	<div class="wrapper">
+		<ul class="tabs clearfix" data-tabgroup="first-tab-group">
+			<li><a href="#tab1" class="active"><i
+					class="fa fa-ambulance fa-2x" aria-hidden="true"></i>
+					<p class="widget-title-text">
+						EMERGENCY<br />ROOM
+					</p></a></li>
+			<li><a href="#tab2"><i class="fa fa-heartbeat fa-2x"
+					aria-hidden="true"></i>
+					<p class="widget-title-text">URGENT CARE</p></a></li>
+			<li><a href="#tab3"><i class="fa fa-calendar-check-o fa-2x"
+					aria-hidden="true"></i>
+					<p class="widget-title-text">PRIMARY CARE</p></a></li>
+			<li><a href="#tab4"><i class="fa fa-user-md fa-2x"
+					aria-hidden="true"></i>
+					<p class="widget-title-text">CARE ON DEMAND</p></a></li>
+		</ul>
+		<section id="first-tab-group" class="tabgroup">
+			<div id="tab1">
+				<!-- <h2>Emergency Room</h2> -->
+				<h2>Urgent Care services at the Emergency Department</h2>
+				<p class="note">* This service is not for emergencies. Threat of
+					loss of life or limb call 911</p>
+				<form id="erform" th:action="@{/ertabs-search}" method="post">
+					<input id="search" name="search" type="text" required="required"
+						placeholder="Type Address and Click Search" />  <input id="sub" type="submit" value="Search" />
+				</form>
+				
+				<div class="item-container">
+
+
+					<div th:each="clinic : ${clinics}">
+						<p>
+							Emergency <span class="miles-style"><i
+								class="fa fa-map-marker" aria-hidden="true"></i> 35.91M</span>
+						</p>
+						<p class="text-left title">
+							<span th:text="${clinic.name}"></span> <br /> <span
+								th:text="${clinic.address}"></span> <br /> <span
+								th:text="${clinic.city}"></span> <br /> <span
+								th:text="${clinic.zipcode}"></span> <br /> <span
+								th:text="${clinic.email}"></span> <br /> <span
+								th:text="${clinic.mobile}"></span>
+						</p>
+						<div class="time-button-wrapper">
+							<a class="button-style" href="#" onclick="book('8:30')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 8:30 AM
+							</a> <a class="button-style" href="#" onclick="book('9:00')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 9:00 AM
+							</a> <a class="button-style" href="#" onclick="book('9:30')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 9:30 AM
+							</a>
+							<div class="dropdown">
+								<a onclick="myFunction()" class="dropbtn">More Option</a>
+								<div id="myDropdown" class="dropdown-content">
+									<a href="#" onclick="book('10:00')">10:00 AM</a> <a href="#" onclick="book('10:30')">10:30 AM</a> <a href="#" onclick="book('11:00')">11:0
+										AM</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div id="tab2">
+				<h2>Urgent Care</h2>
+				<form id="urgentcareform" th:action="@{/ertabs-search}" method="post">
+					<input id="search" name="search" type="text" required="required"
+						placeholder="Type Address and Click Search" />  <input id="sub" type="submit" value="Search" />
+				</form>
+				<div class="item-container">
+					
+					<div th:each="clinic : ${clinics}">
+						<p>
+						Emergency <span class="miles-style"><i
+							class="fa fa-map-marker" aria-hidden="true"></i> 35.91M</span>
+					</p>
+						<p class="text-left title">
+							<span th:text="${clinic.name}"></span> <br /> <span
+								th:text="${clinic.address}"></span> <br /> <span
+								th:text="${clinic.city}"></span> <br /> <span
+								th:text="${clinic.zipcode}"></span> <br /> <span
+								th:text="${clinic.email}"></span> <br /> <span
+								th:text="${clinic.mobile}"></span>
+						</p>
+						<div class="time-button-wrapper">
+							<a class="button-style" style="background-color: purple" href="#" onclick="book('8:30')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 8:30 AM
+							</a> <a class="button-style" style="background-color: purple"  href="#" onclick="book('9:00')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 9:00 AM
+							</a> <a class="button-style" style="background-color: purple" href="#" onclick="book('9:30')"> <i class="fa fa-clock-o"
+								aria-hidden="true"></i> 9:30 AM
+							</a>
+							<div class="dropdown">
+								<a onclick="myFunction()" class="dropbtn" style="background-color: purple;">More Option</a>
+								<div id="myDropdown" class="dropdown-content">
+									<a href="#" onclick="book('10:00')">10:00 AM</a> <a href="#" onclick="book('10:30')">10:30 AM</a> <a href="#" onclick="book('11:00')">11:0
+										AM</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id="tab3">
+
+				<div id="calendar">
+					<input type="hidden" id="demo" />
+				</div>
+			</div>
+			<div id="tab4">
+				<h2>Care On Demand</h2>
+				<img class="responsive-img" src="tabs/img/video_on_demand.jpg"
+					alt="Care On Demand" />
+			</div>
+			<!-- <div id="tab5">
+      <h2>Heading 5</h2>
+      <p>Iste eligendi ratione libero impedit quos necessitatibus labore corporis deserunt quo porro hic eius delectus ea ad amet dolore officiis debitis! Libero officia magnam consequuntur dignissimos molestias quia modi repellat.</p>
+    </div> -->
+		</section>
+	</div>
+	<script src='https://code.jquery.com/jquery-2.2.4.min.js'></script>
+	<script src="tabs/js/index.js"></script>
+	<script>
+		// <![CDATA[
+		/* When the user clicks on the button, 
+		                toggle between hiding and showing the dropdown content */
+		function myFunction() {
+			document.getElementById("myDropdown").classList.toggle("show");
+
+			//console.log(target);
+		}
+		
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(event) {
+			if (!event.target.matches('.dropbtn')) {
+
+				var dropdowns = document
+						.getElementsByClassName("dropdown-content");
+				var i;
+				for (i = 0; i < dropdowns.length; i++) {
+					var openDropdown = dropdowns[i];
+					if (openDropdown.classList.contains('show')) {
+						openDropdown.classList.remove('show');
+						//dropdowns.innerHTML='set valuel';
+					}
+
+					var target = document.getElementsByClassName("dropbtn");
+					target.value = 'test';
+
+				}
+			}
+		}
+		// ]]>
+	</script>
+
+	<script src='tabs/plugin/fullcalendar-3.8.0/lib/moment.min.js'></script>
+	<script src='tabs/plugin/fullcalendar-3.8.0/fullcalendar.min.js'></script>
+	<script>
+		$(document).ready(function() {
+			getLocation();
+			$('#calendar').fullCalendar({
+				defaultDate : '2017-12-12',
+				editable : true,
+				eventLimit : true, // allow "more" link when too many events
+				events : [ {
+					title : 'All Day Event',
+					start : '2017-12-01'
+				}, {
+					title : 'Long Event',
+					start : '2017-12-07',
+					end : '2017-12-10'
+				}, {
+					id : 999,
+					title : 'Repeating Event',
+					start : '2017-12-09T16:00:00'
+				}, {
+					id : 999,
+					title : 'Repeating Event',
+					start : '2017-12-16T16:00:00'
+				}, {
+					title : 'Conference',
+					start : '2017-12-11',
+					end : '2017-12-13'
+				}, {
+					title : 'Meeting',
+					start : '2017-12-12T10:30:00',
+					end : '2017-12-12T12:30:00'
+				}, {
+					title : 'Lunch',
+					start : '2017-12-12T12:00:00'
+				}, {
+					title : 'Meeting',
+					start : '2017-12-12T14:30:00'
+				}, {
+					title : 'Happy Hour',
+					start : '2017-12-12T17:30:00'
+				}, {
+					title : 'Dinner',
+					start : '2017-12-12T20:00:00'
+				}, {
+					title : 'Birthday Party',
+					start : '2017-12-13T07:00:00'
+				}, {
+					title : 'Click for Google',
+					url : 'http://google.com/',
+					start : '2017-12-28'
+				} ]
+			});
+
+		});
+	</script>
+	<script>
+		var x = document.getElementById("demo");
+
+
+		function book(time) {
+			document.forms[0].action = '/ertabs-click?time=' + time;
+			document.forms[0].submit();
+		}
+		
+		function getLocation() {
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(showPosition);
+			} else {
+				x.innerHTML = "Geolocation is not supported by this browser.";
+			}
+		}
+
+		function showPosition(position) {
+			x.innerHTML = "Latitude: " + position.coords.latitude
+					+ "<br />Longitude: " + position.coords.longitude;
+		}
+	</script>
+</body>
+
+<style>
+#sub {
+    background: #6cbb6b;
+    background-image: -moz-linear-gradient(#95d788, #6cbb6b);
+    background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #6cbb6b), color-stop(1, #95d788));
+    -moz-border-radius: 3px 50px 50px 3px;
+    border-radius: 3px 50px 50px 3px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #7eba7c #578e57 #447d43;
+    -moz-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    -webkit-box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 1px 0 rgba(255, 255, 255, 0.3) inset;
+    height: 35px;
+    margin: 0 0 0 10px;
+    padding: 0;
+    width: 90px;
+    cursor: pointer;
+    font: bold 14px Arial, Helvetica;
+    color: #23441e;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+</style>
+
+</html>

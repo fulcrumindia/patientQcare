@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sansar Buildcon</title>
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+    <!-- Animate.css -->
+    <link href="vendors/animate.css/animate.min.css" rel="stylesheet" />
+
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet" />
+  </head>
+
+  <body class="login" style="background: images/main_bg.jpg" ng-controller="LoginController">
+    <div>
+      
+	  <div align="center">
+	  	<img src="images/sansarlogo.png" height="250" width="250"/>
+	  </div>
+      <div class="login_wrapper">
+      	
+        <div class="animate form login_form">
+          <section class="login_content">
+            <form th:action="@{/loginAction}" method="post">
+              <h1>Login</h1>
+              <div th:if="${param.error}">
+                        <div class="alert alert-danger">
+                        	Invalid User Name and password.
+                        </div>
+                    </div>
+              <div>
+                <input type="text" id="username" name="username" class="form-control" placeholder="Username" required="required" />
+              </div>
+              <div>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required="required" />
+              </div>
+              <div>
+                <input type="submit" class="btn btn-default submit" value="Sign In"/>
+                <input type="button" class="btn btn-default" value="Forgot Password"/>
+              </div>
+              
+              <div class="clearfix"></div>
+
+              <div class="separator">
+                  <div class="clearfix"></div>
+                <br />
+
+                
+              </div>
+            </form>
+          </section>
+        </div>
+
+        
+      </div>
+    </div>
+  </body>
+</html>

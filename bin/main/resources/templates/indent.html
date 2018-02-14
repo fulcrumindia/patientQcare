@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	
+<head>
+
+
+
+</head>
+<body onload="checkDuplicate()">
+	<!-- page content -->
+	<div class="right_col" role="main">
+		<div class="">
+			<div class="page-title">
+				<div class="title_left">
+					<h3>Indent Masters</h3>
+				</div>
+
+				<div class="title_right">
+					<div
+						class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+						<div class="input-group">
+							<input type="text" class="form-control"
+								placeholder="Search for..." /> <span class="input-group-btn">
+								<button class="btn btn-default" type="button">Go!</button>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+
+			<div class="row">
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>Indent Details</h2>
+							<ul class="nav navbar-right panel_toolbox">
+								<li><a class="collapse-link"><i
+										class="fa fa-chevron-up"></i></a></li>
+
+								<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							<form id="demo-form2" target="_self"
+								class="form-horizontal form-label-left" action="#"
+								th:action="@{/addIndent}" method="post" modelAttribute="indent">
+
+								<div class="form-group">
+									<input type="hidden" name="id" id="id" th:value="${indent.id}" />
+									<input type="hidden" name="indentno" id="indentno"
+										th:value="${indent.indentno}" /> <input type="hidden"
+										name="requisitionno" id="requisitionno"
+										th:value="${indent.requisitionno}" /> <label
+										class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Requisition Date <span
+										class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class='input-group date' id='myDatepicker2'>
+											<input type='text' class="form-control"
+												name="requisitiondate" id="requisitiondate"
+												required="required" th:value="${indent?.requisitiondate}" />
+											<span class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+									<label class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Required Date <span class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<div class='input-group date' id='myDatepicker3'>
+											<input type='text' class="form-control" required="required"
+												name="requireddate" id="requireddate"
+												th:value="${indent?.requireddate}" /> <span
+												class="input-group-addon"> <span
+												class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</div>
+									<label class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Indentor <span class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<select class="js-example-basic-single form-control"
+											tabindex="-1" name="indentor" id="indentor">
+											<option th:each="tech:${techs}" th:value="${tech.name}"
+												th:text="${tech.name}"
+												th:selected="${tech.name == indent?.indentor}" />
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Store Incharge <span class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<select class="js-example-basic-single form-control"
+											tabindex="-1" name="incharge" id="incharge">
+											<option th:each="tech:${techs}" th:value="${tech.name}"
+												th:text="${tech.name}"
+												th:selected="${tech.name == indent?.incharge}" />
+										</select>
+									</div>
+									<label class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Purchase Officer <span
+										class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<select class="js-example-basic-single form-control"
+											tabindex="-1" name="purchaseoff" id="purchaseoff">
+											<option th:each="tech:${techs}" th:value="${tech.name}"
+												th:text="${tech.name}"
+												th:selected="${tech.name == indent?.purchaseoff}" />
+										</select>
+									</div>
+									<label class="control-label col-md-1 col-sm-6 col-xs-12"
+										for="first-name">Authorised By<span class="required">*</span>
+									</label>
+									<div class="col-md-3 col-sm-6 col-xs-12">
+										<select class="js-example-basic-single form-control"
+											tabindex="-1" name="authorised" id="authorised">
+											<option th:each="tech:${techs}" th:value="${tech.name}"
+												th:text="${tech.name}"
+												th:selected="${tech.name == indent?.authorised}" />
+										</select>
+									</div>
+								</div>
+
+
+								<div class="ln_solid"></div>
+								<div class="form-group">
+									<div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
+										<button class="btn btn-primary" type="button"
+											onclick="addItems();">Add Items</button>
+									</div>
+								</div>
+
+								<div class="ln_solid"></div>
+
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th></th>
+												<th align="center">Seq</th>
+												<th>Product</th>
+												<th nowrap="nowrap">Stock</th>
+												<th nowrap="nowrap">Unit</th>
+												<th nowrap="nowrap">Max</th>
+												<th nowrap="nowrap">Min</th>
+												<th>Qty Required</th>
+												<th>Purchase Qty</th>
+												<th>Location</th>
+												<th>Remark</th>
+											</tr>
+										</thead>
+
+
+										<tbody>
+											<tr th:each="indentitem,stat : ${indent.items}">
+												<td align="center" valign="middle"><a
+													th:onclick="'deleteData('+${stat.index}+')'"><i
+														class="fa fa-trash-o" aria-hidden="true"></i></a></td>
+												<td class="col-md-1" align="center" th:text="${stat.index + 1}" />
+												<td>
+													<div class="col-md-12 col-sm-1 col-xs-1">
+														<input type="hidden"
+															th:field="*{indent.items[__${stat.index}__].indentid}"
+															th:value="${indent.id}" /> <input type="hidden"
+															th:field="*{indent.items[__${stat.index}__].id}"
+															th:value="${indentitem.id}" /> <select
+															th:onchange="'populateStockData('+${stat.index}+')'"
+															class="js-example-basic-single form-control"
+															tabindex="-1"
+															th:field="*{indent.items[__${stat.index}__].product_id}">
+															<option value=""></option>
+															<option th:each="product : ${products}"
+																th:value="${product.id}"
+																th:text="${product.name} + ' ' + ${product.description}"
+																th:selected="${product.id == indentitem?.product_id}" />
+														</select>
+													</div>
+												</td>
+												<td align="left">
+													<div class="col-md-1 col-sm-1 col-xs-1" style="width: 10%">
+														<label class="col-md-1 col-sm-1 col-xs-1" for="first-name"><span
+															th:text="${indentitem.stockqty}"></span></label> <input
+															type="hidden" th:value="${indentitem.stockqty}"
+															th:field="*{indent.items[__${stat.index}__].stockqty}"
+															class="form-control col-md-1 col-xs-1" />
+													</div>
+												</td>
+												<td align="left">
+													<div class="col-md-1 col-sm-1 col-xs-1" style="width: 10%">
+														<label class="col-md-1 col-sm-1 col-xs-1" for="first-name"><span
+															th:text="${indentitem.unit}"></span></label> <input type="hidden"
+															th:value="${indentitem.unit}"
+															th:field="*{indent.items[__${stat.index}__].unit}"
+															class="form-control col-md-1 col-xs-1" />
+													</div>
+												</td>
+												<td align="left">
+													<div class="col-md-1 col-sm-1 col-xs-1" style="width: 10%">
+														<label class="col-md-1 col-sm-1 col-xs-1" for="first-name"><span
+															th:text="${indentitem.max}"></span></label> <input type="hidden"
+															th:value="${indentitem.max}"
+															th:field="*{indent.items[__${stat.index}__].max}"
+															class="form-control col-md-1 col-xs-1" />
+													</div>
+												</td>
+												<td align="left">
+													<div class="col-md-1 col-sm-1 col-xs-1" style="width: 10%">
+														<label class="col-md-1 col-sm-1 col-xs-1" for="first-name"><span
+															th:text="${indentitem.min}"></span></label> <input type="hidden"
+															th:value="${indentitem.min}"
+															th:field="*{indent.items[__${stat.index}__].min}"
+															class="form-control col-md-1 col-xs-1" />
+													</div>
+												</td>
+												<td>
+
+													<div class="col-md-12 col-sm-1 col-xs-11">
+														<input type="number" step="any"
+															th:field="*{indent.items[__${stat.index}__].qty}"
+															
+															required="required"
+															class="form-control col-md-3 col-xs-1" />
+													</div>
+												</td>
+												<td>
+
+													<div class="col-md-12 col-sm-1 col-xs-1">
+														<input type="number" step="any"
+															th:field="*{indent.items[__${stat.index}__].purchaseqty}"
+															required="required"
+															class="form-control col-md-12 col-xs-1" />
+													</div>
+												</td>
+												<td>
+
+													<div class="col-md-12 col-sm-1 col-xs-1">
+														<select class="js-example-basic-single form-control"
+															tabindex="-1"
+															th:field="*{indent.items[__${stat.index}__].locationid}">
+															<option th:each="loc : ${locs}" th:value="${loc.id}"
+																th:text="${loc.name}"
+																th:selected="${loc.id == indentitem?.locationid}" />
+														</select>
+													</div>
+												</td>
+												<td>
+
+													<div class="col-md-12 col-sm-1 col-xs-1">
+														<input type="text" onchange="addItems()"
+															th:field="*{indent.items[__${stat.index}__].remarks}"
+															required="required"
+															class="form-control col-md-12 col-xs-1" />
+													</div>
+												</td>
+
+											</tr>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="ln_solid"></div>
+								<div class="form-group">
+									<div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
+										<button class="btn btn-primary" type="submit">Save
+											Indent</button>
+									</div>
+								</div>
+
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Indent Details</h2>
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						<li><a class="close-link"><i class="fa fa-close"></i></a></li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="datatable-fixed-header"
+						class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th></th>
+								<th></th>
+								<th>Seq</th>
+								<th>Indentno</th>
+								<th>Requisition No</th>
+								<th>Requistion Date</th>
+								<th>Required Date</th>
+								<th>Total Items</th>
+							</tr>
+						</thead>
+
+
+						<tbody>
+
+							<tr th:each="indent1,stat : ${indents}">
+								<td><button type="button" class="btn btn-info"
+										th:onclick="${'editIndent(' + indent1.id + ');'}">Edit</button></td>
+								<td><button type="button" class="btn btn-info"
+										th:onclick="${'printData(' + indent1.id + ');'}">Print</button></td>
+								<td class="col-md-1" align="center" th:text="${stat.index + 1}" />
+								<td><div class="tooltip1"><p th:text="${indent1.indentno}"></p>
+									<span class="tooltiptext1">
+										<table style="width: 100%">
+											<tr th:each="indentitem,stat : ${indent1.items}" align="center">
+							                    <td class="col-md-1" align="center" nowrap="nowrap" th:text="${indentitem.product.name + indentitem.product.description}" />
+							                    <td class="col-md-1" align="center" nowrap="nowrap" th:text="${indentitem.location.name}" />
+							                    <td class="col-md-1" align="center" nowrap="nowrap" th:text="${indentitem.purchaseqty}" />
+										    </tr>
+										</table>
+									</span>
+									</div>
+								</td>
+								<td th:text="${indent1.requisitionno}" />
+								<td th:text="${indent1.requisitiondate}" />
+								<td th:text="${indent1.requireddate}" />
+								<td th:text="${#lists.size(indent1.items)}" />
+
+							</tr>
+
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- /page content -->
+
+
+
+	<script type="text/javascript">
+		/*<![CDATA[*/
+		function addItems() {
+			document.forms[0].target = "_self";
+			document.forms[0].action = "/addIndentItems";
+			document.forms[0].submit();
+		}
+		function editIndent(id) {
+			document.forms[0].target = "_self";
+			document.getElementById('id').value = id;
+			document.forms[0].action = "/editIndent";
+			document.forms[0].submit();
+		}
+		function copyIndent(id) {
+			document.forms[0].target = "_self";
+			document.getElementById('id').value = id;
+			document.forms[0].action = "/copyIndent";
+			document.forms[0].submit();
+		}
+
+		function printData(id) {
+
+			//document.getElementById('id').value = id;
+			document.forms[0].target = "_blank";
+			document.forms[0].action = "/printIndent?id="+id;
+			document.forms[0].submit();
+		}
+		function deleteData(id) {
+			document.forms[0].target = "_self";
+			document.forms[0].action = "/deleteIndentItem?index=" + id;
+			document.forms[0].submit();
+		}
+
+		function save() {
+			document.forms[0].target = "_self";
+			document.forms[0].action = "/deleteIndentItem?index=" + id;
+			document.forms[0].submit();
+		}
+
+		function populateStockData(id) {
+			document.forms[0].target = "_self";
+			var e = document.getElementById("items" + id + '.product_id');
+			var strUser = e.options[e.selectedIndex].value;
+			document.forms[0].action = "/populateIndentStockData?index=" + id
+					+ "&products_id=" + strUser;
+			document.forms[0].submit();
+		}
+
+		function populatepurchaseqty(id) {
+			document.forms[0].target = "_self";
+			var stock = document.getElementById("items" + id + '.stockqty').value;
+			var min = document.getElementById("items" + id + '.min').value;
+			var qty = document.getElementById("items" + id + '.qty').value;
+			var difference = parseFloat(stock) - parseFloat(min);
+			document.getElementById("items" + id + '.purchaseqty').value = parseFloat(qty)
+					- parseFloat(difference);
+		}
+
+		function show(id) {
+			document.getElementById(id).style.display = '';
+		}
+		function hide(id) {
+			document.getElementById(id).style.display = 'none';
+		}
+
+		$('#myDatepicker3').datetimepicker({
+			format : 'DD/MM/YYYY'
+		});
+		/*]]>*/
+	</script>
+	<script type="text/javascript">
+		$(document).on('blur', "input[type=text]", function() {
+			$(this).val(function(_, val) {
+				return val.toUpperCase();
+			});
+		});
+	</script>
+	
+	
+
+</body>
+</html>

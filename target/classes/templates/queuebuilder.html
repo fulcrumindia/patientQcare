@@ -1,0 +1,141 @@
+<div class="white-box">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="panel panel-info">
+					<div class="panel-heading" style="background-color: #1a5375;border-color: #ed552f">Queue Builder</div>
+					<div class="panel-wrapper collapse in" aria-expanded="true">
+						<div class="panel-body">
+							<form th:action="@{/addQueue}" method="post" modelAttribute="queue">
+								<div class="form-body">
+									<input type="hidden" name="id" id="id" th:value="${queue?.id }"/>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Name</label> <input
+													type="text" id="name" name="name" class="form-control" required="required"
+													placeholder="Queue Name" th:value="${queue?.name }"/> 
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Description</label> <input
+													type="text" id="description" name="description" class="form-control" required="required"
+													placeholder="Description" th:value="${queue?.description }"/>
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+									<!--/row-->
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Type</label> <select
+													class="form-control" name="type" id="type">
+													<option value="Normal">New Patient Queue</option>
+													<option value="Treatment">Treatment Queue</option>
+													<option value="Completed">Completed Queue</option>
+													<option value="Cancelled">Cancelled Queue</option>
+												</select>
+											</div>
+										</div>
+										<!--/span-->
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Enable Message</label><br/>
+												<input type="checkbox" name="enablemessage"  id="enablemessage" th:checked="${queue?.enablemessage}" class="js-switch" data-color="#13dafe" />
+											</div>
+										</div>
+										<!--/span-->
+									</div>
+									<!--/row-->
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Color</label><br/>
+												<input type="text" name="color" id="color" class="colorpicker form-control" th:value="${queue?.color }"/>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="form-group">
+												<label class="control-label">Border Color</label><br/>
+												<input type="text" name="bordercolor" id="bordercolor" class="colorpicker form-control" th:value="${queue?.bordercolor }"/>
+											</div>
+										</div>
+										
+								</div>
+								</div>
+								<div class="form-actions" align="center">
+									<button type="submit" class="btn btn-success">
+										<i class="fa fa-check"></i> Save
+									</button>
+									<button type="reset" class="btn btn-default">
+										<i class="fa fa-check"></i> Cancel
+									</button>
+								</div>
+							</form>
+						</div>
+						
+                    
+					</div>
+					
+				</div>
+				<div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div class="table-responsive" >
+                                <table class="table color-table primary-table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Queue Name</th>
+                                            <th>Queue Type</th>
+                                            <th>Description</th>
+                                            <th>Color</th>
+                                            <th>Border Color</th>
+                                            <th>Enable Message</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="queue,stat : ${queues}">
+                                        	<td th:text="${stat.index + 1}" />
+                                        	<td th:text="${queue.name}" />
+                                        	<td th:text="${queue.type}" />
+                                        	<td th:text="${queue.description}" />
+                                        	<td th:text="${queue.color}" />
+                                        	<td th:text="${queue.bordercolor}" />
+                                        	<td th:text="${queue.enablemessage} ? 'Yes' : 'No'" />
+                                        	<td><button type="button" class="btn btn-info" th:onclick="${'editQueue(' + queue.id + ');'}"><i class="fa fa-pencil"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+			</div>
+		</div>
+
+
+
+
+		<!-- /.right-sidebar -->
+	</div>
+	
+	<style>
+		.color-table.primary-table thead th {
+		background-color: #1a5375;
+		border-color: #ed552f;
+		}
+	</style>
+	
+	<script>
+		function editQueue(id)
+		{
+			document.getElementById('id').value = id;
+			document.forms[0].action = "/editQueue";
+			document.forms[0].submit();
+		}
+	</script>
+

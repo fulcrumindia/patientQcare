@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body onload="checkDuplicate()">
+	<!-- page content -->
+	<div class="right_col" role="main">
+		<div class="">
+			<div class="page-title">
+				<div class="title_left">
+					<h3>Search Indent Masters</h3>
+				</div>
+			</div>
+
+			<div class="clearfix"></div>
+		</div>
+
+		<div class="">
+			<form id="demo-form2" target="_self"
+				class="form-horizontal form-label-left" action="#"
+				th:action="@{/searchIndentMaster}" method="post">
+
+				<div class="form-group">
+					<input type="hidden" name="id" id="id"  />
+					<label class="control-label col-md-1 col-sm-6 col-xs-12"
+						for="first-name">Start Date <span class="required">*</span>
+					</label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class='input-group date' id='myDatepicker2'>
+							<input type='text' class="form-control" name="startdate"
+								id="startdate" required="required" th:value="${startdate}" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+					<label class="control-label col-md-1 col-sm-6 col-xs-12"
+						for="first-name">End Date <span class="required">*</span>
+					</label>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class='input-group date' id='myDatepicker3'>
+							<input type='text' class="form-control" required="required"
+								name="enddate" id="enddate" th:value="${enddate}" /> <span
+								class="input-group-addon"> <span
+								class="glyphicon glyphicon-calendar"></span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-sm-12 col-xs-12 col-md-offset-4">
+					<button class="btn btn-primary" type="submit">Search</button>
+				</div>
+			</form>
+		</div>
+
+
+		<div class="x_content">
+			<table id="datatable-fixed-header"
+				class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>View</th>
+						<th>Indentno</th>
+						<th>Requisition No</th>
+						<th>Requistion Date</th>
+						<th>Required Date</th>
+						<th>Total Items</th>
+					</tr>
+				</thead>
+
+
+				<tbody>
+
+					<tr th:each="indent1 : ${indents}">
+					<td>
+						<button type="button" class="btn btn-info"
+										th:onclick="${'printData(' + indent1.id + ');'}">Print</button></td>
+						<td><div class="tooltip1">
+								<p th:text="${indent1.indentno}"></p>
+								<span class="tooltiptext1">
+									<table style="width: 100%">
+										<tr th:each="indentitem,stat : ${indent1.items}"
+											align="center">
+											<td class="col-md-1" align="center" nowrap="nowrap"
+												th:text="${indentitem.product.name + indentitem.product.description}" />
+											<td class="col-md-1" align="center" nowrap="nowrap"
+												th:text="${indentitem.location.name}" />
+											<td class="col-md-1" align="center" nowrap="nowrap"
+												th:text="${indentitem.purchaseqty}" />
+										</tr>
+									</table>
+								</span>
+							</div></td>
+						<td th:text="${indent1.requisitionno}" />
+						<td th:text="${indent1.requisitiondate}" />
+						<td th:text="${indent1.requireddate}" />
+						<td th:text="${#lists.size(indent1.items)}" />
+
+					</tr>
+
+				</tbody>
+			</table>
+
+		</div>
+
+
+	</div>
+
+	<!-- /page content -->
+
+
+
+	<script type="text/javascript">
+		function printData(id) {
+		
+			document.getElementById('id').value = id;
+			document.forms[0].target = "_blank";
+			document.forms[0].action = "/printIndent";
+			document.forms[0].submit();
+		}
+    	function editBrand(id)
+    	{
+    		document.getElementById('id').value = id;
+    		document.forms[0].action = "/editBrand";
+    		document.forms[0].submit();
+    	}
+    </script>
+	<script type="text/javascript">
+		
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		        return val.toUpperCase();
+		    });
+		});
+		
+		function checkDuplicate()
+		{
+			//alert(document.getElementById('isDuplicate').value);
+			if(document.getElementById('isDuplicate').value == 'true')
+			{
+				new PNotify({
+                    title: 'Duplicate Entry',
+                    text: 'Duplicate Brand Name.',
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+			}
+			
+		}
+		
+		 
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<link rel="icon" type="image/png" sizes="16x16"
+	href="/plugins/images/favicon.png" />
+<title>PatientQ</title>
+<!-- Bootstrap Core CSS -->
+<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link
+	href="plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css"
+	rel="stylesheet" />
+<!-- animation CSS -->
+<link href="css/animate.css" rel="stylesheet" />
+<!-- Custom CSS -->
+<link href="css/style.css" rel="stylesheet" />
+<!-- color CSS -->
+<link href="css/colors/megna.css" id="theme" rel="stylesheet" />
+</head>
+<body>
+	<!-- Preloader -->
+	<div class="preloader">
+		<div class="cssload-speeding-wheel"></div>
+	</div>
+	<section id="wrapper" class="login-register"
+		style="background-color: grey;">
+		<div class="row" style="height: 100%;">
+			<div class="col-md-6 col-sm-12 col-xs-12" id="mainContent">
+				<div class="white-box">
+					<h1 style="color: #1a5375" align="center">
+						<b>Welcome to Patient Q</b>
+					</h1>
+					<hr />
+					<h2 style="color: #5d97b2" align="center">Watch The Brief
+						Tutorials on Patient Q</h2>
+					<h3 style="color: #dadadc" align="center">Patient Q is a
+						Virtual Waiting Room and Patient Flow System</h3>
+					<div style="width: 100%" align="center">
+						<iframe width="90%" height="300"
+							src="https://www.youtube.com/embed/tgbNymZ7vqY"> </iframe>
+					</div>
+				</div>
+				<div class="white-box">
+					<div class="sttabs tabs-style-circlefill" style="border: 0;">
+                                    <nav>
+                                        <ul>
+                                            <li><a href="#section-circlefill-1" class="ti-home"><span>Connect</span></a></li>
+                                            <li><a href="#section-circlefill-2" class="ti-calendar"><span>Gifts</span></a></li>
+                                            <li><a href="#section-circlefill-3" class="ti-support"><span>Boxes</span></a></li>
+                                            <li><a href="#section-circlefill-4" class="ti-settings"><span>Prints</span></a></li>
+                                           
+                                        </ul>
+                                    </nav>
+                                    
+                                    <!-- /content -->
+                                </div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-12 col-xs-12" id="loginContent">
+				<div style="float: right; margin-right: 10">
+					<a href="javascript:void(0)"><img style="margin-right: 30pt"
+						src="/plugins/images/emergency_logo.png" height="100" width="250"
+						alt="Home" /><br /> </a>
+				</div>
+				<div class="white-box" style="height: 100%">
+					<form th:action="@{/submitUser}" method="post"
+						class="form-horizontal form-material" id="loginform" modelAttribute="user">
+						<br /> <br /> <br />
+
+						<div class="row">
+							<h2 style="color: #ed552f">
+								<b>Register</b>
+							</h2>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" style="color: #5d97b2">First Name</label>
+									<input class="form-control" type="text" required="required"
+										placeholder="First Name" id="firstname" name="firstname" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" style="color: #5d97b2">Last Name</label>
+									<input class="form-control" type="text" required="required"
+										placeholder="Last Name" id="lastname" name="lastname" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" style="color: #5d97b2">Email Address</label>
+									<input class="form-control" type="email" required="required"
+										placeholder="Email" id="emailAddress" name="emailAddress" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" style="color: #5d97b2">Password</label>
+									<input class="form-control" type="password" required="required"
+										placeholder="Password" id="password" name="password" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" style="color: #5d97b2">PIN</label>
+									<input class="form-control" type="number" required="required"
+										placeholder="PIN" id="pin" name="pin" />
+								</div>
+							</div>
+						</div>
+						
+
+						<div class="form-group text-center m-t-20">
+							<div class="col-md-6">
+								<button
+									class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"
+									type="submit" style="color: white; background-color: #ed552f">Sign Up</button>
+							</div>
+							<div class="col-md-6">
+								<button
+									class="btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light"
+									type="reset" style="color: white; background-color: #ed552f">Reset</button>
+							</div>
+
+						</div>
+
+
+					</form>
+
+				</div>
+			</div>
+
+
+		</div>
+
+
+
+
+	</section>
+	<!-- jQuery -->
+	<script src="plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="bootstrap/dist/js/tether.min.js"></script>
+	<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script
+		src="plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+	<!-- Menu Plugin JavaScript -->
+	<script
+		src="plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+
+	<!--slimscroll JavaScript -->
+	<script src="js/jquery.slimscroll.js"></script>
+	<!--Wave Effects -->
+	<script src="js/waves.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="js/custom.min.js"></script>
+	<!--Style Switcher -->
+	<script
+		src="plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+</body>
+</html>
+
+<style>
+#mainContent {
+	position: absolute;
+	color: #fff;
+	top: 50%;
+	left: 35%;
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+}
+
+#mainContent2 {
+	position: absolute;
+	color: #fff;
+	top: 80%;
+	left: 35%;
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+}
+
+#loginContent {
+	position: absolute;
+	color: #fff;
+	top: 0%;
+	left: 70%;
+	height: 100%;
+}
+</style>
+

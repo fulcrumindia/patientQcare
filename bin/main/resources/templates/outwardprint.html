@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sansar Buildcon</title>
+
+	<link href="css/select2.css" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+
+	<!-- PNotify -->
+    <link href="vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+    <link href="vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+    <link href="vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+    
+	<!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <!-- Datatables -->
+    <link href="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet" />
+
+
+ 	<!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet" />
+  </head>
+  <body style="background-color: white;">
+    <!-- page content -->
+        <div>
+          <div class="">
+            <table class="col-md-12" border="1">
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2" align="center"><img src="images/shristilogo.png" align="middle" width="200" height="80"/></td>
+            		<td class="col-md-6" colspan="4" rowspan="3" align="center">
+            			<b style="font-size: 40pt">
+            			OUTWARD
+            			</b>
+            		</td>
+            		<td class="col-md-3" colspan="2" nowrap="nowrap" align="center"><img src="images/sansarlogo.png" align="middle" width="200" height="100"/></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>St. Xavier School Road</b></td>
+            		<td class="col-md-3" colspan="2" rowspan="1" nowrap="nowrap"><b>Outward No:- <span th:text="${outward.issueno}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>Avanti Vihar Raipur</b></td>
+            		
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" colspan="2"><b>Reason:-<span th:text="${outward.reasonoftransfer}"></span></b></td>
+            		<td class="col-md-3" colspan="4" rowspan="1" align="center"><b>RECEIVER COPY</b></td>
+            		<td class="col-md-3" colspan="2"><b>Outward Date:- <span th:text="${outward.issuedate}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>Transfer To:- <span th:text="${outward.location.name}"></span></b></td>
+            		<td class="col-md-3" colspan="2" rowspan="1" nowrap="nowrap"><b>Transaction Type:- <span th:text="${outward.transactiontype}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b>Person To Carry:- <span th:text="${outward.person}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b>Mobile:- <span th:text="${outward.mobile}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b>Date of Return:- <span th:text="${outward.dateofreturn}"></span></b></td>
+            	</tr>
+            	
+            	
+            	<tr>
+            		<td class="col-md-1" align="center">S.No.</td>
+            		<td class="col-md-1" align="center">Product Code </td>
+            		<td class="col-md-1" align="center">Product Description </td>
+            		<td class="col-md-1" align="center">Qty</td>
+            		<td class="col-md-1" align="center">Unit</td>
+            		<td class="col-md-1" align="center">Amount</td>
+            		<td class="col-md-1" align="center">Reason</td>
+            	</tr>
+            	<tr th:each="out,stat : ${outward.items}">
+	                <td align="center" class="col-md-1" th:text="${stat.index + 1}" />
+			        <td align="center" class="col-md-1" th:text="${out.product.productCode}" />
+			        <td align="center" class="col-md-1" nowrap="nowrap" th:text="${out.product.name + out.product.description}" />
+			        <td align="center" class="col-md-1" th:text="${out.issuedqty}" />
+			        <td align="center" class="col-md-1" th:text="${out.product.unit.name}" />
+			        <td align="center" class="col-md-1" th:text="${out.amout}" />
+			        <td  align="center" class="col-md-1" th:text="${out.reason}" />
+					        
+				</tr>
+				<tr height="100">
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	
+			    </tr>
+				<tr>
+            		<td class="col-md-3" colspan="2"   valign="top"><b style="font-size: 8pt">Prepared By</b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="3"  valign="top"><b style="font-size: 8pt">Verified By </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="2"  valign="top"><b style="font-size: 8pt">Receivers Signature</b><br/><br/>
+            		
+            		<br/><br/></td>
+            		
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Checked By </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="3" rowspan="5"  valign="top"><b style="font-size: 8pt">Gate Verification With Seal </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Authorised By </b><br/><br/>
+            		
+            		<br/><br/></td>
+            		
+            	</tr>
+            </table>
+          
+        </div>
+        </div>
+        <div>
+          <div class="">
+            <table class="col-md-12" border="1">
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2" align="center"><img src="images/shristilogo.png" align="middle" width="200" height="80"/></td>
+            		<td class="col-md-6" colspan="4" rowspan="3" align="center">
+            			<b style="font-size: 40pt">
+            			OUTWARD
+            			</b>
+            		</td>
+            		<td class="col-md-3" colspan="2" nowrap="nowrap" align="center"><img src="images/sansarlogo.png" align="middle" width="200" height="100"/></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>St. Xavier School Road</b></td>
+            		<td class="col-md-3" colspan="2" rowspan="1" nowrap="nowrap"><b>Outward No:- <span th:text="${outward.issueno}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>Avanti Vihar Raipur</b></td>
+            		
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" colspan="2"><b>Reason:-<span th:text="${outward.reasonoftransfer}"></span></b></td>
+            		<td class="col-md-3" colspan="4" rowspan="1" align="center"><b>GATE COPY</b></td>
+            		<td class="col-md-3" colspan="2"><b>Outward Date:- <span th:text="${outward.issuedate}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="2"><b>Transfer To:- <span th:text="${outward.location.name}"></span></b></td>
+            		<td class="col-md-3" colspan="2" rowspan="1" nowrap="nowrap"><b>Transaction Type:- <span th:text="${outward.transactiontype}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b>Person To Carry:- <span th:text="${outward.person}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b>Mobile:- <span th:text="${outward.mobile}"></span></b></td>
+            		<td class="col-md-3" colspan="1" rowspan="1" nowrap="nowrap"><b><span th:text="${outward.dateofreturn != null} ? 'Date of Return:-' : ''"></span> <span th:text="${outward.dateofreturn}"></span></b></td>
+            	</tr>
+            	
+            	
+            	<tr>
+            		<td class="col-md-1" align="center">S.No.</td>
+            		<td class="col-md-1" align="center">Product Code </td>
+            		<td class="col-md-1" align="center">Product Description </td>
+            		<td class="col-md-1" align="center">Qty</td>
+            		<td class="col-md-1" align="center">Unit</td>
+            		<td class="col-md-1" align="center">Amount</td>
+            		<td class="col-md-1" align="center">Reason</td>
+            	</tr>
+            	<tr th:each="out,stat : ${outward.items}">
+	                <td align="center" class="col-md-1" th:text="${stat.index + 1}" />
+			        <td align="center" class="col-md-1" th:text="${out.product.productCode}" />
+			        <td align="center" class="col-md-1" nowrap="nowrap" th:text="${out.product.name + out.product.description}" />
+			        <td align="center" class="col-md-1" th:text="${out.issuedqty}" />
+			        <td align="center" class="col-md-1" th:text="${out.product.unit.name}" />
+			        <td align="center" class="col-md-1" th:text="${out.amout}" />
+			        <td align="center" class="col-md-1" th:text="${out.reason}" />
+					        
+				</tr>
+				
+				<tr height="100">
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	
+			    </tr>
+				<tr>
+            		<td class="col-md-3" colspan="2"   valign="top"><b style="font-size: 8pt">Prepared By</b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="3"  valign="top"><b style="font-size: 8pt">Verified By </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="2"  valign="top"><b style="font-size: 8pt">Receivers Signature</b><br/><br/>
+            		
+            		<br/><br/></td>
+            		
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Checked By </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="3" rowspan="5"  valign="top"><b style="font-size: 8pt">Gate Verification With Seal </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Authorised By </b><br/><br/>
+            		
+            		<br/><br/></td>
+            		
+            	</tr>
+            </table>
+          
+        </div>
+        </div>
+        <!-- /page content -->
+
+    
+    <script>
+	    $('#myDatepicker2').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+	    
+    </script>
+    
+    <script type="text/javascript">
+		$(document).ready(function() {
+			$(".js-example-basic-single").select2();
+			window.print();
+
+		});
+	</script>
+	
+     <script type="text/javascript">
+    	function editGRN(id)
+    	{
+    		document.getElementById('id').value = id;
+    		document.forms[0].action = "/editGRN";
+    		document.forms[0].submit();
+    	}
+    	
+    	function printGRN(id) {
+    		alert(id);
+    		document.getElementById('grnno').value = id;
+    		document.forms[0].action = "/printGRN";
+    		document.forms[0].submit();
+    	}
+    	
+    	
+    </script>
+    
+    <script type="text/javascript">
+		
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		    	
+		        return val.toUpperCase();
+		    });
+		});
+		
+		
+	</script>
+
+ <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+  	
+  	<!-- validator -->
+    <script src="vendors/validator/validator.js"></script>
+    
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    
+    <script src="js/select2.js"></script>
+    
+     <!-- bootstrap-datetimepicker -->    
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- PNotify -->
+    <script src="vendors/pnotify/dist/pnotify.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    
+    
+    <script type="text/javascript">
+    
+	    $('#myDatepicker2').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+	    
+	  
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		        return val.toUpperCase();
+		    });
+		});
+		
+		function select2()
+		{
+			$(".js-example-basic-single").select2();
+			$(".js-example-basic-multiple").select2();
+		}
+		
+	</script>
+	
+  </body>
+</html>

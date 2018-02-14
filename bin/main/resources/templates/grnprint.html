@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sansar Buildcon</title>
+
+	<link href="css/select2.css" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <!-- NProgress -->
+    <link href="vendors/nprogress/nprogress.css" rel="stylesheet" />
+
+	<!-- PNotify -->
+    <link href="vendors/pnotify/dist/pnotify.css" rel="stylesheet" />
+    <link href="vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet" />
+    <link href="vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet" />
+    
+	<!-- iCheck -->
+    <link href="vendors/iCheck/skins/flat/green.css" rel="stylesheet" />
+    <!-- Datatables -->
+    <link href="vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet" />
+    <link href="vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet" />
+
+
+ 	<!-- bootstrap-datetimepicker -->
+    <link href="vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <link href="vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+    
+    <!-- Custom Theme Style -->
+    <link href="build/css/custom.min.css" rel="stylesheet" />
+  </head>
+  <body style="background-color: white;" onload="select2()">
+    <!-- page content -->
+        <div style="height: 50%">
+          <div class="">
+            <table class="col-md-12" border="1">
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="3" align="center"><img src="images/shristilogo.png" align="middle" width="200" height="80"/></td>
+            		<td class="col-md-6" colspan="6" rowspan="4" align="center" nowrap="nowrap">
+            			<b style="font-size: 40pt">
+            			GOOD RECEIPT NOTE
+            			</b>
+            		</td>
+            		<td class="col-md-3" colspan="4" nowrap="nowrap" align="center"><img src="images/sansarlogo.png" align="middle" width="200" height="100"/></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="3"><b>St. Xavier School Road</b></td>
+            		<td class="col-md-3" colspan="4" rowspan="2" nowrap="nowrap"><b>GRN No:- <span th:text="${grn.genno}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="3"><b>Avanti Vihar Raipur</b></td>
+            		
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" nowrap="nowrap" colspan="3"><b>Supplier Name:- <span th:text="${grn.po}?${grn.po?.vendor?.name}:${grn.vendor?.name}"></span></b></td>
+            		<td class="col-md-3" nowrap="nowrap" colspan="5"><b>Vehicle Number:- <span th:text="${grn.vehicleno}"></span></b></td>
+            		
+            	</tr>
+            	
+            	<tr>
+            		<td class="col-md-3" colspan="3"><b>Challan No:- <span th:text="${grn.challano}"></span></b></td>
+            		<td class="col-md-3" colspan="6" rowspan="2" align="center"><b>STORE COPY</b></td>
+            		<td class="col-md-3" nowrap="nowrap" colspan="4"><b>Vehicle Type:- <span th:text="${grn.vehicletype}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-3" colspan="3"><b>Challan Date:- <span th:text="${grn.challandate}"></span></b></td>
+            		<td class="col-md-3" colspan="4"><b>GRN Date:- <span th:text="${grn.grndate}"></span></b></td>
+            	</tr>
+            	<tr>
+            		<td class="col-md-1" align="center">S.No.</td>
+            		<td class="col-md-1" align="center">PO No</td>
+            		<td class="col-md-1" align="center">Product Code </td>
+            		<td class="col-md-1" align="center">Product Description </td>
+            		<td class="col-md-1" align="center">UOM</td>
+            		<td class="col-md-1" align="center">Challan Qty</td>
+            		<td class="col-md-1" align="center">Difference Q</td>
+            		<td class="col-md-1" align="center">Received Q</td>
+            		<td class="col-md-1" align="center">Warranty</td>
+            		<td class="col-md-1" align="center">Rate</td>
+            		<td class="col-md-1" align="center">GST</td>
+            		<td class="col-md-1" align="center">Value</td>
+            		<td class="col-md-1" align="center">Required For</td>
+            	</tr>
+            	<tr th:each="indentitem,stat : ${grn.items}">
+                    <td align="center" class="col-md-1" th:text="${stat.index + 1}" />
+                    <td align="center" class="col-md-1" th:text="${indentitem.ponumber}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.product.productCode}" />
+			        <td align="center" class="col-md-1" nowrap="nowrap" th:text="${indentitem.product.name + indentitem.product.description}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.product.unit.name}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.challanqty}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.differenceqty}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.receivedqty}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.warranty}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.rate}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.tax}" />
+			        <td align="center" class="col-md-1" th:text="${indentitem.value}" />
+			        <td align="center" class="col-md-1" nowrap="nowrap" th:text="${indentitem.location.name}" />
+			    </tr>
+			    <tr height="100">
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    	<td>&nbsp;</td>
+			    </tr>
+				<tr>
+            		<td class="col-md-3" colspan="3" rowspan="5"  valign="top"><b style="font-size: 8pt">Prepared By </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Store Incharge </b><br/>
+            		
+            		<br/><br/><br/></td>
+            		<td class="col-md-3" colspan="3" rowspan="5"  valign="top"><b style="font-size: 8pt">Inspected By</b><br/><br/>
+            		
+            		<br/><br/></td>
+            		<td class="col-md-3" colspan="2" rowspan="5"  valign="top"><b style="font-size: 8pt">Verified By</b><br/>
+            		
+            		<br/><br/><br/></td>
+            		
+            		<td class="col-md-3" colspan="3" rowspan="5"  valign="top"><b style="font-size: 8pt">Finance Dept. </b><br/>
+            		
+            		<br/><br/><br/></td>
+            	</tr>
+            </table>
+          
+        </div>
+        </div>
+        
+        
+        <!-- /page content -->
+
+    
+    <script>
+	    $('#myDatepicker2').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+	    
+    </script>
+    
+    <script type="text/javascript">
+		
+	</script>
+	
+     <script type="text/javascript">
+    	function editGRN(id)
+    	{
+    		document.getElementById('id').value = id;
+    		document.forms[0].action = "/editGRN";
+    		document.forms[0].submit();
+    	}
+    	
+    	function printGRN(id) {
+    		
+    		document.getElementById('grnno').value = id;
+    		document.forms[0].action = "/printGRN";
+    		document.forms[0].submit();
+    	}
+    	
+    	
+    </script>
+    
+    <script type="text/javascript">
+		
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		    	
+		        return val.toUpperCase();
+		    });
+		});
+		
+		
+	</script>
+
+ <!-- jQuery -->
+    <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- FastClick -->
+    <script src="vendors/fastclick/lib/fastclick.js"></script>
+    <!-- NProgress -->
+    <script src="vendors/nprogress/nprogress.js"></script>
+  	
+  	<!-- validator -->
+    <script src="vendors/validator/validator.js"></script>
+    
+    <!-- Custom Theme Scripts -->
+    <script src="build/js/custom.min.js"></script>
+    <!-- Datatables -->
+    <script src="vendors/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="vendors/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.flash.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
+    <script src="vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
+    <script src="vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script>
+    <script src="vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+    <script src="vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
+    <script src="vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script>
+    <script src="vendors/jszip/dist/jszip.min.js"></script>
+    <script src="vendors/pdfmake/build/pdfmake.min.js"></script>
+    <script src="vendors/pdfmake/build/vfs_fonts.js"></script>
+    
+    <script src="js/select2.js"></script>
+    
+     <!-- bootstrap-datetimepicker -->    
+    <script src="vendors/moment/min/moment.min.js"></script>
+    <script src="vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- PNotify -->
+    <script src="vendors/pnotify/dist/pnotify.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="vendors/pnotify/dist/pnotify.nonblock.js"></script>
+    
+    
+    <script type="text/javascript">
+    
+	    $('#myDatepicker2').datetimepicker({
+	        format: 'DD/MM/YYYY'
+	    });
+	    
+	  
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		        return val.toUpperCase();
+		    });
+		});
+		
+		function select2()
+		{
+			
+			$(".js-example-theme-multiple").select2({
+				  tags: "true",
+				  maximumSelectionSize: 1,
+				  multiple: false,
+				  allowClear: false
+				});
+		}
+		
+	</script>
+	
+  </body>
+</html>

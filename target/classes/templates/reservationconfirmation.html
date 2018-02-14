@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<link rel="icon" type="image/png" sizes="16x16"
+	href="../plugins/images/favicon.png" />
+<title>Patient Q</title>
+<!-- Bootstrap Core CSS -->
+<link href="admin/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link
+	href="../plugins/bower_components/bootstrap-extension/css/bootstrap-extension.css"
+	rel="stylesheet" />
+<!-- animation CSS -->
+<link href="css/animate.css" rel="stylesheet" />
+<!-- Wizard CSS -->
+<link href="../plugins/bower_components/register-steps/steps.css"
+	rel="stylesheet" />
+<!-- Custom CSS -->
+<link href="admin/css/style.css" rel="stylesheet" />
+<!-- color CSS -->
+<link href="admin/css/colors/megna.css" id="theme" rel="stylesheet" />
+<link href="../plugins/bower_components/custom-select/custom-select.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="../plugins/bower_components/bootstrap-select/bootstrap-select.min.css"
+	rel="stylesheet" />
+<link
+	href="../plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.css"
+	rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<!-- Preloader -->
+	<div class="preloader">
+		<div class="cssload-speeding-wheel"></div>
+	</div>
+	<section id="wrapper" class="step-register">
+		<div class="register-box confirmation-box">
+			<div class="">
+				<!-- multistep form -->
+				<form id="msform" class="confirmation-form">
+					<!-- progressbar -->
+					<fieldset>
+						<div>
+							<h2 class="text-left">
+								Visit Confirmation<a href="javascript:void(0)"
+									class="btn btn-danger pull-right">Print Visit</a>
+								<p class="clearfix"></p>
+							</h2>
+							<p class="text-left">
+								Your Confirmation Number is: <span class="confirmation-code"><span
+									th:text="${patientreservation?.reference}"></span></span>
+							</p>
+							<p class="text-left">
+								<strong>Patient Name</strong> <span
+									th:text="${patientreservation?.firstname} + ' '  + ${patientreservation?.lastname}"></span>
+							</p>
+							<hr />
+							<div class="row">
+								<div class="col-md-4">
+									<p class="text-left title">
+										<b>Hospital Details</b>
+									</p>
+									<p class="text-left">
+										<span th:text="${clinic.name}"></span> <br /> <span
+											th:text="${clinic.address}"></span> <br /> <span
+											th:text="${clinic.city}"></span> <br /> <span
+											th:text="${clinic.zipcode}"></span> <br /> <span
+											th:text="${clinic.email}"></span> <br /> <span
+											th:text="${clinic.mobile}"></span>
+									</p>
+								</div>
+								<div class="col-md-4">
+									<p class="text-left title">
+										<b>Your Visit Time</b>
+									</p>
+									<p class="text-left">
+										<span class="fa fa-clock-o confirmation-code"></span> <span
+											th:text="${#dates.format(#dates.createNow(), 'HH:mm a')}"></span>
+									</p>
+								</div>
+								<div class="col-md-4">
+									<p class="text-left title">
+										<b>Visit Time and Date</b>
+									</p>
+									<p class="text-left">
+										<span class="fa fa-clock-o confirmation-code"></span> 1:10PM <br />
+										<span class="fa fa-calendar confirmation-code"></span>
+										10/05/2017
+									</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div id="googleMap" style="width: 100%; height: 230px;"></div>
+								</div>
+							</div>
+							<br />
+							<p>*Mid Valley Hospital urgent Care online self-schedulling
+								lets you join a virtual waiting room fro estimated treatment at
+								the ER or book appointments for healthcare services.</p>
+							<br />
+							<div class="row">
+								<div class="col-md-12">
+									<p class="text-left title">
+										<b>Driving Direction</b>
+									</p>
+									<p class="text-left">Get Direction to the Hospital from
+										your current address</p>
+
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<div class="clear"></div>
+			</div>
+		</div>
+	</section>
+	<!-- jQuery -->
+	<script src="../plugins/bower_components/jquery/dist/jquery.min.js"></script>
+	<!-- Bootstrap Core JavaScript -->
+	<script src="bootstrap/dist/js/tether.min.js"></script>
+	<script src="bootstrap/dist/js/bootstrap.min.js"></script>
+	<script
+		src="../plugins/bower_components/bootstrap-extension/js/bootstrap-extension.min.js"></script>
+	<!-- Menu Plugin JavaScript -->
+	<script
+		src="../plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js"></script>
+	<script
+		src="../plugins/bower_components/register-steps/jquery.easing.min.js"></script>
+	<script
+		src="../plugins/bower_components/register-steps/register-init.js"></script>
+	<!--slimscroll JavaScript -->
+	<script src="js/jquery.slimscroll.js"></script>
+	<!--Wave Effects -->
+	<script src="js/waves.js"></script>
+	<!-- Custom Theme JavaScript -->
+	<script src="js/custom.min.js"></script>
+	<!--Style Switcher -->
+	<script
+		src="../plugins/bower_components/custom-select/custom-select.min.js"
+		type="text/javascript"></script>
+	<script
+		src="../plugins/bower_components/bootstrap-select/bootstrap-select.min.js"
+		type="text/javascript"></script>
+	<script
+		src="../plugins/bower_components/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script
+		src="../plugins/bower_components/styleswitcher/jQuery.style.switcher.js"></script>
+	<script type="text/javascript">
+		$(".select2").select2();
+		// Date Picker
+		jQuery('.mydatepicker, #datepicker').datepicker();
+		jQuery('#datepicker-autoclose').datepicker({
+			autoclose : true,
+			todayHighlight : true
+		});
+	</script>
+	<script>
+		// <![CDATA[
+		function myMap() {
+			var mapProp = {
+				center : new google.maps.LatLng(51.508742, -0.120850),
+				zoom : 5
+			};
+			var map = new google.maps.Map(document.getElementById("googleMap"),
+					mapProp);
+		}
+		// ]]>
+	</script>
+	<script async="async" defer="defer"
+		th:src="@{https://maps.googleapis.com/maps/api/js(key=${'AIzaSyCggRGHZbewqvPN1_iy9-Gx67PuqQQ8leg'},callback=myMap)}"></script>
+
+
+
+</body>
+</html>

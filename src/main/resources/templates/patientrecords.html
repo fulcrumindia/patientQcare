@@ -1,0 +1,93 @@
+
+<div class="white-box">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel panel-info">
+				<div class="panel-wrapper collapse in" aria-expanded="true">
+					<div class="panel-body">
+						<form th:action="@{/updateCQueueData}" method="post"
+							id="cqdataForm" modelAttribute="qform">
+							<div class="table-responsive">
+								<h3 class="box-title">Completed Treatment Queue</h3>
+								<table class="table color-table primary-table">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>Name</th>
+											<th>Provider Name</th>
+											<th>Visit Time</th>
+											<th>Wait Time</th>
+											<th>Enter Time</th>
+											<th>Symtomps</th>
+											<th>Treatment</th>
+											<th>Remarks</th>
+											<th>Referred</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="nqueue,stat : ${qform.cqueuelist}">
+											<td th:text="${stat.index + 1}">
+											</td>
+											<td th:text="${nqueue.pateintname}"/>
+											<td th:text="${nqueue.provider?.firstname} + ' ' + ${nqueue.provider?.lastname}"/>
+											<td th:text="${#dates.format(nqueue.visittime, 'hh:mm a')}"/>
+											<td th:text="${nqueue.assignedwaittime}"/>
+											<td th:text="${#dates.format(nqueue.entertime, 'hh:mm a')}"/>
+											<td th:text="${nqueue.symptom}"/>
+											<td th:text="${nqueue.treatment}"/>
+											<td th:text="${nqueue.remarks}"/>
+											<td th:text="${nqueue.referred}"/>
+											
+											<td><button type="button" class="btn btn-info"
+													th:onclick="${'message(' + nqueue.id + ');'}">
+													<i class="ti-email"></i>
+												</button></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+	<!-- /.right-sidebar -->
+</div>
+
+<style>
+.color-table.primary-table thead th {
+	background-color: #1a5375;
+	border-color: #ed552f;
+}
+</style>
+
+<script>
+	function editQueue(id) {
+		document.getElementById('id').value = id;
+		document.forms[0].action = "/editQueue";
+		document.forms[0].submit();
+	}
+
+	function updateNQData(id) {
+		document.forms[1].action = '/updateNQueueData?id=' + id;
+		document.forms[1].submit();
+	}
+	function updateTQData(id) {
+		document.forms[2].action = '/updateTQueueData?id=' + id;
+		document.forms[2].submit();
+	}
+
+	$(document).ready(function() {
+		$(".select3").select2();
+		$('.selectpicker').selectpicker();
+	});
+</script>
+

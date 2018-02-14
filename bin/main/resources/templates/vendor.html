@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  
+
+  <body class="nav-md" onload="checkDuplicate()">
+   <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Vendor Masters</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Vendor Details</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <form id="demo-form2"  class="form-horizontal form-label-left" action="#" th:action="@{/addVendor}" method="post" modelAttribute="vendor">
+
+                      <div class="form-group">
+                      	<input type="hidden" name="isDuplicate" id="isDuplicate" th:value="${isDuplicate}"/>
+                      	<input type="hidden" name="id" id="id" th:value="${vendor?.id }"/>
+                        <label class="control-label col-md-1 col-sm-6 col-xs-12" for="first-name">Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input type="text" id="name" name="name" data-validate-length-range="6" required="required" th:value="${vendor?.name}" class="form-control col-md-3 col-xs-12" />
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">Person<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="contactPerson" required="required" class="form-control col-md-3 col-xs-12" type="text" th:value="${vendor?.contactPerson}" name="contactPerson" />
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">Mobile<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="contactNumber" required="required" class="form-control col-md-3 col-xs-12" type="number" name="contactNumber"  th:value="${vendor?.contactNumber}"/>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-1 col-sm-6 col-xs-12" for="last-name"> PAN <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input type="text" id="panNumber" name="panNumber" required="required" class="form-control col-md-2 col-xs-12" th:value="${vendor?.panNumber}"/>
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">TAN<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="tanNumber" required="required" class="form-control col-md-2 col-xs-12" type="text" name="tanNumber" th:value="${vendor?.tanNumber}"/>
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-2 col-xs-12">GST<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="gst" required="required" class="form-control col-md-2 col-xs-12" type="text" name="gst" th:value="${vendor?.gst}"/>
+                        </div>
+                      </div>
+                      
+                      
+                      
+                       <div class="form-group">
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">Email<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="emailAddress" required="required"  class="form-control col-md-2 col-xs-12" type="text" name="emailAddress" th:value="${vendor?.emailAddress}"/>
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">WhatsUp Number<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <input id="whatsupNumber" required="required"  class="form-control col-md-2 col-xs-12" type="text" name="whatsupNumber" th:value="${vendor?.whatsupNumber}"/>
+                        </div>
+                         <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">Address<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <textarea cols="2" rows="3" id="address" required="required" class="form-control col-md-7 col-xs-12"  name="address" th:text="${vendor?.address}"></textarea>
+                        </div>
+                      </div>
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-12 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Vendor Details</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    
+                    <table id="datatable-fixed-header" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Id</th>
+                          <th>Name</th>
+                          <th>Person</th>
+                          <th>Mobile</th>
+                          <th>TAN</th>
+                          <th>PAN</th>
+                          <th>GST</th>
+                          <th>Email</th>
+                          <th>WhatsUp Number</th>
+                          <th>Address</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                      	<tr th:each="vendor : ${vendors}">
+                      		<td><button type="button" class="btn btn-info" th:onclick="${'editVendor(' + vendor.id + ');'}" >Edit</button></td>
+					        <td th:text="${vendor.id}" />
+					        <td th:text="${vendor.name}" />
+					        <td th:text="${vendor.contactPerson}" />
+					        <td th:text="${vendor.contactNumber}" />
+					        <td th:text="${vendor.tanNumber}" />
+					        <td th:text="${vendor.panNumber}" />
+					        <td th:text="${vendor.gst}" />
+					        <td th:text="${vendor.emailAddress}" />
+					        <td th:text="${vendor.whatsupNumber}" />
+					        <td th:text="${vendor.address}" />
+					    </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+        </div>
+        <!-- /page content -->
+
+       <script type="text/javascript">
+    	function editVendor(vendorID)
+    	{
+    		document.getElementById('id').value = vendorID;
+    		document.forms[0].action = "/editVendor";
+    		document.forms[0].submit();
+    	}
+    	
+    	function checkDuplicate()
+		{
+			if(document.getElementById('isDuplicate').value == 'true')
+			{
+				new PNotify({
+                    title: 'Duplicate Entry',
+                    text: 'Duplicate Vendor Name.',
+                    type: 'error',
+                    styling: 'bootstrap3'
+                });
+			}
+			
+		}
+    	
+    </script>
+
+	<script type="text/javascript">
+		$(document).on('blur', "input[type=text]", function () {
+		    $(this).val(function (_, val) {
+		        return val.toUpperCase();
+		    });
+		});
+	</script>
+  </body>
+</html>

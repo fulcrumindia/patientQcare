@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+  		<body onload="checkDuplicate()">
+  		 <!-- page content -->
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Quotation Masters</h3>
+              </div>
+
+              <div class="title_right">
+                <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for..." />
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Quotation Details</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <form id="demo-form2"  class="form-horizontal form-label-left" action="#" th:action="@{/addQuotation}" method="post" modelAttribute="quotation">
+
+                      <div class="form-group">
+                      	<input type="hidden" name="id" id="id" th:value="${location?.id }"/>
+                        <label class="control-label col-md-1 col-sm-6 col-xs-12" for="first-name">Indent <span class="required">*</span>
+                        </label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <select class="js-example-basic-single form-control" tabindex="-1" name="intent_id" id="intent_id" >
+                             <option th:each="indent:${indents}"
+                             	 th:value="${indent.id}"
+                                 th:text="${indent.product.name}"
+                                 th:selected="${indent.id == quotation?.intent_id}" />
+                          </select>
+                        </div>
+                        <label for="middle-name" class="control-label col-md-1 col-sm-6 col-xs-12">Vendor<span class="required">*</span></label>
+                        <div class="col-md-3 col-sm-6 col-xs-12">
+                          <select class="js-example-basic-multiple form-control" multiple="multiple" tabindex="-1" name="vendor_id" id="vendor_id" >
+                             <option th:each="vendor:${vendors}"
+                             	 th:value="${vendor.id}"
+                                 th:text="${vendor.name}"
+                                 th:selected="${vendor.id == quotation?.vendor_id}" />
+                          </select>
+                        </div>
+                      </div>
+                      
+                     
+                      
+                       
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-12 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button class="btn btn-primary" type="reset">Reset</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Quotation Details</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    
+                    <table id="datatable-fixed-header" class="table table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th></th>
+                          <th>Id</th>
+                          <th>Recquisition Number</th>
+                          <th>Product Name</th>
+                          <th>Product Qty</th>
+                          <th>Urgency</th>
+                          <th>Vendor</th>
+                        </tr>
+                      </thead>
+
+
+                      <tbody>
+                      	<tr th:each="quotation : ${quotations}">
+                      		<td><button type="button" class="btn btn-info" th:onclick="${'editQuotation(' + quotation.id + ');'}" >Edit</button>
+                      		</td>
+					        <td th:text="${quotation.id}" />
+					        <td th:text="${quotation.id}" />
+					        <td th:text="${quotation.indent.product.name}" />
+					        <td th:text="${quotation.indent.qty}" />
+					        <td th:text="${quotation.indent.urgency}" />
+					        <td th:text="${quotation.vendor.name}" />
+					    </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              
+        </div>
+        <!-- /page content -->
+
+       
+    
+    <script type="text/javascript">
+    	function editQuotation(id)
+    	{
+    		document.getElementById('id').value = id;
+    		document.forms[0].action = "/editQuotation";
+    		document.forms[0].submit();
+    	}
+    	
+    </script>
+
+	
+	
+	
+
+</body>
+</html>
